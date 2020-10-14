@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Stateful widgets maintain state that might change during the lifetime of the widget.
+// StatefulWidget class is, itself, immutable and can be thrown away and regenerated,
+// but the State class persists over the lifetime of the widget.
 class RandomWords extends StatefulWidget {
   // just creates an instance of state.
   @override
@@ -35,6 +38,7 @@ class _RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
   // fontSize is a named optional parameter
   final _biggerFont = TextStyle(fontSize: 18.0);
+  final _saved = Set<WordPair>();
   
   @override
   Widget build(BuildContext context) {
@@ -69,11 +73,27 @@ class _RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+    final alreadySaved = _saved.contains(pair);
     return ListTile(
       title: Text(
         pair.asPascalCase,
         style: _biggerFont
       ),
+      trailing: Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+      ),
+      onTap: () {
+        // calling setState() triggers a call to the build() method for the State object,
+        // resulting in an update to the UI. Wow, this is exactly like React
+        setState(() {
+          if (alreadySaved) {
+            _saved.remove(pair);
+          } else {
+            _saved.add(pair);
+          }
+        });
+      }
     );
   }
 }
