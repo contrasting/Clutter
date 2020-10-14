@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Welcome to Flutter',
+      theme: ThemeData.dark(),
       home: RandomWords()
     );
   }
@@ -39,12 +40,13 @@ class _RandomWordsState extends State<RandomWords> {
   // fontSize is a named optional parameter
   final _biggerFont = TextStyle(fontSize: 18.0);
   final _saved = Set<WordPair>();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Startup Name Generator'),
+        actions: [IconButton(icon: Icon(Icons.list), onPressed: _pushSaved,)]
       ),
       body: _buildSuggestions(),
     );
@@ -94,6 +96,37 @@ class _RandomWordsState extends State<RandomWords> {
           }
         });
       }
+    );
+  }
+
+  void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        // builder is a (anonymous) factory method that constructs the page content
+        builder: (BuildContext context) {
+          final tiles = _saved.map(
+            (WordPair pair) {
+              return ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            }
+          );
+
+          final divided = ListTile.divideTiles(tiles: tiles, context: context).toList();
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Saved Suggestions')
+            ),
+            // a different method of constructing a ListView. In _buildSuggestions(),
+            // we use a factory pattern; here we give it ListTile instances
+            body: ListView(children: divided),
+          );
+        }
+      )
     );
   }
 }
