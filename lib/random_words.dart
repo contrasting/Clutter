@@ -1,9 +1,26 @@
+import 'package:flutter/material.dart';
+import 'package:english_words/english_words.dart';
+
+// In Flutter, almost everything is a widget, including alignment, padding, and layout.
+
+// Widget's main job is to provide a build() method that describes how to display
+// the widget in terms of other, lower level widgets. A bit like React components...
+
+// A stateless widget is immutable, meaning that its properties can't change
+class RandomWordsApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'Welcome to Flutter',
+        theme: ThemeData.dark(),
+        home: RandomWords()
+    );
+  }
+}
+
 // Stateful widgets maintain state that might change during the lifetime of the widget.
 // StatefulWidget class is, itself, immutable and can be thrown away and regenerated,
 // but the State class persists over the lifetime of the widget.
-import 'package:english_words/english_words.dart';
-import 'package:flutter/material.dart';
-
 class RandomWords extends StatefulWidget {
   // just creates an instance of state.
   @override
