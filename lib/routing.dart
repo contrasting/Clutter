@@ -11,7 +11,7 @@ class Nav2App extends StatelessWidget {
         }
 
         // Handle '/details/:id'
-        var uri = Uri.parse(settings.name);
+        var uri = Uri.parse(settings.name!);
         if (uri.pathSegments.length == 2 &&
             uri.pathSegments.first == 'details') {
           var id = uri.pathSegments[1];
@@ -48,7 +48,7 @@ class DetailScreen extends StatelessWidget {
   final String id;
 
   DetailScreen({
-    this.id,
+    required this.id,
   });
 
   @override

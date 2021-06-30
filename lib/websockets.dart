@@ -24,7 +24,7 @@ class MyHomePage extends StatefulWidget {
   final String title;
   final WebSocketChannel channel;
 
-  MyHomePage({Key key, @required this.title, @required this.channel})
+  MyHomePage({Key? key, required this.title, required this.channel})
       : super(key: key);
 
   @override
