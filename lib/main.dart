@@ -5,11 +5,12 @@ import 'random_words.dart';
 import 'layout_demo.dart';
 import 'animation.dart';
 import 'websockets.dart';
+import 'shared_axis_transition.dart';
 
 // https://stackoverflow.com/questions/59870357/how-to-remove-hash-from-url-in-flutter-web
 
 // one line function can use arrow notation
 void main() {
   configureApp();
-  runApp(WebSocketsApp());
+  runApp(MaterialApp(home: SharedAxisTransitionDemo()));
 }

@@ -26,6 +26,7 @@ dependencies:
 
   english_words: ^4.0.0
   web_socket_channel: ^2.0.0
+  animations: ^2.0.0
 
 dev_dependencies:
   flutter_test:
