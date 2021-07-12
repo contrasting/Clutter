@@ -7,11 +7,12 @@ import 'animation.dart';
 import 'websockets.dart';
 import 'shared_axis_transition.dart';
 import 'fade_through_transition.dart';
+import 'reactor.dart';
 
 // https://stackoverflow.com/questions/59870357/how-to-remove-hash-from-url-in-flutter-web
 
 // one line function can use arrow notation
 void main() {
   configureApp();
-  runApp(MaterialApp(home: FadeThroughTransitionDemo()));
+  runApp(MaterialApp(home: AppLifecycleReactor()));
 }
