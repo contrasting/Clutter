@@ -9,11 +9,12 @@ import 'shared_axis_transition.dart';
 import 'fade_through_transition.dart';
 import 'reactor.dart';
 import 'key.dart';
+import 'container_transition.dart';
 
 // https://stackoverflow.com/questions/59870357/how-to-remove-hash-from-url-in-flutter-web
 
 // one line function can use arrow notation
 void main() {
   configureApp();
-  runApp(MaterialApp(home: PositionedTiles()));
+  runApp(MaterialApp(home: OpenContainerTransformDemo()));
 }
