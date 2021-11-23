@@ -187,7 +187,7 @@ class _SignInPage extends StatelessWidget {
           children: <Widget>[
             Padding(padding: EdgeInsets.symmetric(vertical: maxHeight / 20)),
             Image.asset(
-              'assets/avatar_logo.png',
+              'images/lake.jpg',
               width: 80,
             ),
             Padding(padding: EdgeInsets.symmetric(vertical: maxHeight / 50)),

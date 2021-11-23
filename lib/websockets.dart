@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:web_socket_channel/html.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -14,7 +14,7 @@ class WebSocketsApp extends StatelessWidget {
       home: MyHomePage(
         title: title,
         // note there are different imports for different platforms
-        channel: HtmlWebSocketChannel.connect('wss://echo.websocket.org'),
+        channel: IOWebSocketChannel.connect('wss://echo.websocket.org'),
       ),
     );
   }
