@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter_app/webrtc.dart';
 import 'configure_nonweb.dart' if (dart.library.html) 'configure_web.dart';
 import 'routing.dart';
 import 'random_words.dart';
@@ -16,5 +17,5 @@ import 'container_transition.dart';
 // one line function can use arrow notation
 void main() {
   configureApp();
-  runApp(MaterialApp(home: OpenContainerTransformDemo()));
+  runApp(const WebRTCApp());
 }
