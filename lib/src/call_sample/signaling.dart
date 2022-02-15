@@ -166,6 +166,7 @@ class Signaling {
               RTCSessionDescription(description['sdp'], description['type']));
           await _createAnswer(newSession, media);
           if (newSession.remoteCandidates.length > 0) {
+            // what's this doing, adding existing candidates?
             newSession.remoteCandidates.forEach((candidate) async {
               await newSession.pc?.addCandidate(candidate);
             });
@@ -282,10 +283,10 @@ class Signaling {
     await _socket?.connect();
   }
 
-  Future<MediaStream> createStream(String media, bool userScreen) async {
+  Future<MediaStream> createStream(String media, bool screenSharing) async {
     final Map<String, dynamic> mediaConstraints = {
-      'audio': userScreen ? false : true,
-      'video': userScreen
+      'audio': screenSharing ? false : true,
+      'video': screenSharing
           ? true
           : {
               'mandatory': {
@@ -299,7 +300,7 @@ class Signaling {
             }
     };
 
-    MediaStream stream = userScreen
+    MediaStream stream = screenSharing
         ? await navigator.mediaDevices.getDisplayMedia(mediaConstraints)
         : await navigator.mediaDevices.getUserMedia(mediaConstraints);
     onLocalStream?.call(stream);
@@ -399,7 +400,7 @@ class Signaling {
                 'to': peerId,
                 'from': _selfId,
                 'candidate': {
-                  'sdpMLineIndex': candidate.sdpMlineIndex,
+                  'sdpMLineIndex': candidate.sdpMLineIndex,
                   'sdpMid': candidate.sdpMid,
                   'candidate': candidate.candidate,
                 },

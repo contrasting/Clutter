@@ -37,8 +37,8 @@ class _CallSampleState extends State<CallSample> {
   }
 
   @override
-  deactivate() {
-    super.deactivate();
+  dispose() {
+    super.dispose();
     _signaling?.close();
     _localRenderer.dispose();
     _remoteRenderer.dispose();
@@ -46,7 +46,7 @@ class _CallSampleState extends State<CallSample> {
 
   void _connect() async {
     _signaling ??= Signaling(widget.host)..connect();
-    _signaling?.onSignalingStateChange = (SignalingState state) {
+    _signaling!.onSignalingStateChange = (SignalingState state) {
       switch (state) {
         case SignalingState.ConnectionClosed:
         case SignalingState.ConnectionError:
