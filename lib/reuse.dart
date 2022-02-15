@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 /* How to reuse logic between different flutter components?
 *
+* Rather unfortunately, the official flutter docs don't really have much to say on this
+* (as far as I could find). Luckily, flutter is a reactive paradigm, and React does
+* have some things to say about this.
+*
 * With functional components in React, you could just extract the logic into
 * custom hooks, but hooks aren't a thing in flutter.
 *
@@ -192,3 +196,77 @@ class _HState extends State<H> with SignUpMixin {
     );
   }
 }
+
+/* Option 2: builder method or "render props"
+*
+* "Traditionally in React, we’ve had two popular ways to share stateful logic between
+*  components: render props and higher-order components." From https://reactjs.org/docs/hooks-custom.html
+*
+* What is this? Intuitively, we might be tempted to pass the widget to be rendered
+* down as a prop, but the problem is, it wouldn't be able to use the logic:
+* */
+
+class SignUpButton extends StatelessWidget {
+  final Widget button;
+
+  const SignUpButton({Key? key, required this.button}) : super(key: key);
+
+  void _signUp() {
+    // ...
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // how to make button call _signUp()??
+    return button;
+  }
+}
+
+/* So the solution? To pass the logic back up via a builder method: */
+
+class SignUpButton2 extends StatelessWidget {
+  final Widget Function(void Function() signUp) builder;
+
+  const SignUpButton2({Key? key, required this.builder}) : super(key: key);
+
+  void _signUp() {
+    // ...
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return builder(_signUp);
+  }
+}
+
+class SignUpApp extends StatelessWidget {
+  const SignUpApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SignUpButton2(
+      builder: (signUp) {
+        // or TextButton, or whatever
+        return IconButton(
+          icon: Icon(Icons.star),
+          onPressed: signUp,
+        );
+      },
+    );
+  }
+}
+
+/* Pretty cool, pretty cool. In this way, the sign up logic can be reused anywhere
+* in the app. Similarly for a stateful widget.
+*
+* Option 3: higher-order widgets or "HOWs"
+*
+* "Concretely, a higher-order component is a function that takes a component and returns a new component."
+* From https://reactjs.org/docs/higher-order-components.html
+*
+* I have to say, this one is a new and rather alien concept to me. I don't think it's
+* actually possible in flutter, because dart doesn't allow this kind of type mutation
+* like in javascript.
+*
+* TODO
+*/
