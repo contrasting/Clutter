@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 * With functional components in React, you could just extract the logic into
 * custom hooks, but hooks aren't a thing in flutter.
 *
+* Edit: hooks are actually a thing in flutter!
+*
 * People coming from a non-declarative paradigm would be forgiven for the next
 * most natural thing that comes to mind, i.e. inheritance. But why is this
 * not such a good idea? Take a look at the following:
@@ -102,7 +104,8 @@ class _DState extends _CState {
 * As stated at https://reactjs.org/docs/composition-vs-inheritance.html,
 * we should really be using composition rather than inheritance to reuse code.
 *
-* Option 1: mixins
+* Option 1: mixins. Edit: Mixins are actually not great, because they don't allow
+* for composition of widgets. See option 2 for a better way
 * */
 
 mixin SignUpMixin {
